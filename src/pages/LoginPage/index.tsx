@@ -95,6 +95,7 @@ const SignInPage = () => {
               backgroundColor: '#ffebee',
               borderRadius: '4px',
             }}
+            data-testid='error-message'
           >
             Ошибка входа
           </div>
