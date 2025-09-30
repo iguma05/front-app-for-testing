@@ -1,0 +1,61 @@
+version: "3.8"
+
+services:
+  # Backend API сервер
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: todo-app-backend
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    networks:
+      - todo-network
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:3001/api/auth/sign-in",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend React приложение
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: todo-app-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - todo-network
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:3000",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  todo-network:
+    driver: bridge
