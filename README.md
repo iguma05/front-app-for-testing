@@ -12,7 +12,7 @@
 │   ├── types/              # TypeScript типы
 │   ├── hooks/              # Кастомные хуки
 │   └── constants/          # Константы приложения
-├── api/                    # Serverless API (Vercel)
+├── server/                 # BFF
 ├── public/                 # Статические файлы
 └── build/                  # Собранное приложение
 ```

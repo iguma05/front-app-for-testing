@@ -10,8 +10,7 @@ COPY package*.json ./
 # Устанавливаем зависимости
 RUN npm ci --only=production
 
-# Копируем API код
-COPY api/ ./api/
+# Копируем BFF код
 COPY server/ ./server/
 
 # Создаем пользователя для безопасности
