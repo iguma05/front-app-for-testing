@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import {
   Box,
   TextField,
@@ -106,7 +106,11 @@ const SignInPage = () => {
           variant='outlined'
           className='singIn_form_item'
           error={!!errors?.username}
-          helperText={errors?.username?.message}
+          helperText={
+            <Fragment data-testid='username-error-validate'>
+              {errors?.username?.message}
+            </Fragment>
+          }
           {...register('username')}
         />
         <Controller
@@ -144,7 +148,9 @@ const SignInPage = () => {
                 id='component-helper-text'
                 error={!!errors?.password}
               >
-                {errors?.password?.message}
+                <Fragment data-testid='password-error-validate'>
+                  {errors?.password?.message}
+                </Fragment>
               </FormHelperText>
             </FormControl>
           )}
